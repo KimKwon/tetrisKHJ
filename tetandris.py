@@ -56,8 +56,8 @@ class Tetandris:
         self.YELLOW      = (155, 155,   0)
         self.LIGHTYELLOW = (175, 175,  20)
 
-        self.BORDERCOLOR = self.BLUE
-        self.BGCOLOR = self.BLACK
+        self.BORDERCOLOR = self.WHITE
+        self.BGCOLOR = (00,22,33)
         self.TEXTCOLOR = self.WHITE
         self.TEXTSHADOWCOLOR = self.GRAY
         self.COLORS      = (     self.BLUE,      self.GREEN,      self.RED,      self.YELLOW)
@@ -232,7 +232,7 @@ class Tetandris:
 
                 if not self.isValidPosition(board, fallingPiece):
                     return # can't fit a new piece on the board, so game over
-                    
+
             self.checkForQuit()
             for event in pygame.event.get(): # event handling loop
                 if event.type == KEYUP:
