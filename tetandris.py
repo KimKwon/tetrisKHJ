@@ -3,7 +3,7 @@
 # http://inventwithpython.com/pygame
 # Released under a "Simplified BSD" license
 
-import random, time, pygame, sys, menu
+import random, time, pygame, sys,menu
 from pygame.locals import *
 
 '''
@@ -192,7 +192,7 @@ class Tetandris:
             (255,255,255))
         noob = False
 
-        pygame.mixer.music.load("music01.ogg")
+        pygame.mixer.music.load("music02.ogg")
         pygame.mixer.music.play()
         self.showTextScreen('Tet and Ris')
         while True: # game loop
