@@ -1,4 +1,5 @@
 # Tet and Ris
+** Kwon Hyuk Jin
 
 
 
@@ -17,8 +18,10 @@
 
 5. SPACE : Fall TET Directly
 6. P : PAUSE
-7. R : Use Ultimate
+7. R : Use Ultimate Skill
 8. ESC : Exit TET
+
+
 
 ##  Additional Function ( except Basic Function )
 
