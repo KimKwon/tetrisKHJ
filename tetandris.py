@@ -1,28 +1,7 @@
-# Tetromino (a Tetris clone)
-# By Al Sweigart al@inventwithpython.com
-# http://inventwithpython.com/pygame
-# Released under a "Simplified BSD" license
 
 import random, time, pygame, sys,menu
 from pygame.locals import *
 
-'''
-@author: avalanchy (at) google mail dot com
-@version: 0.1; python 2.7; pygame 1.9.2pre; SDL 1.2.14; MS Windows XP SP3
-@date: 2012-04-08
-@license: This document is under GNU GPL v3
-
-README on the bottom of document.
-
-@font: from http://www.dafont.com/coders-crux.font
-      more abuot license you can find in data/coders-crux/license.txt
-'''
-#
-# if not pygame.display.get_init():
-#     pygame.display.init()
-#
-# if not pygame.font.get_init():
-#     pygame.font.init()
 class Tetandris:
 
     def __init__(self) :
@@ -336,7 +315,7 @@ class Tetandris:
             # drawing everything on the screen
 
             DISPLAYSURF.fill(self.BGCOLOR)
-            if self.score %10 == 0 and isulti==False and self.score is not 0 and self.score is not 100:
+            if self.score %15 == 0 and isulti==False and self.score is not 0 and self.score is not 100:
                 isulti=True
                 DISPLAYSURF.blit(ulti,(0,0))
             elif isulti==True:
@@ -388,7 +367,7 @@ class Tetandris:
         DISPLAYSURF.blit(titleSurf, titleRect)
 
         # Draw the additional "Press a key to play." text.
-        pressKeySurf, pressKeyRect = self.makeTextObjs('Press a key to play.', BASICFONT, self.TEXTCOLOR)
+        pressKeySurf, pressKeyRect = self.makeTextObjs('Let\'s get it! Press any key !', BASICFONT, self.TEXTCOLOR)
         pressKeyRect.center = (int(self.WINDOWWIDTH / 2), int(self.WINDOWHEIGHT / 2) + 100)
         DISPLAYSURF.blit(pressKeySurf, pressKeyRect)
 
@@ -479,38 +458,32 @@ class Tetandris:
 
 
     def removeCompleteLines(self,board):
-        # Remove any completed lines on the board, move everything above them down, and return the number of complete lines.
+
         numLinesRemoved = 0
-        y = self.BOARDHEIGHT - 1 # start y at the bottom of the board
+        y = self.BOARDHEIGHT - 1
         while y >= 0:
             if self.isCompleteLine(board, y):
-                # Remove the line and pull boxes down by one line.
+
                 for pullDownY in range(y, 0, -1):
                     for x in range(self.BOARDWIDTH):
                         board[x][pullDownY] = board[x][pullDownY-1]
-                # Set very top line to blank.
+
                 for x in range(self.BOARDWIDTH):
                     board[x][0] = self.BLANK
                 numLinesRemoved += 1
-                # Note on the next iteration of the loop, y is the same.
-                # This is so that if the line that was pulled down is also
-                # complete, it will be removed.
+
             else:
                 y -= 1 # move on to check next row up
         return numLinesRemoved
 
 
     def convertToPixelCoords(self,boxx, boxy):
-        # Convert the given xy coordinates of the board to xy
-        # coordinates of the location on the screen.
+
         return (self.XMARGIN + (boxx * self.BOXSIZE)), (self.TOPMARGIN + (boxy * self.BOXSIZE))
 
 
     def drawBox(self,boxx, boxy, color, pixelx=None, pixely=None):
-        # draw a single box (each tetromino piece has four boxes)
-        # at xy coordinates on the board. Or, if pixelx & pixely
-        # are specified, draw to the pixel coordinates stored in
-        # pixelx & pixely (this is used for the "Next" piece).
+
         if color == self.BLANK:
             return
         if pixelx == None and pixely == None:
@@ -520,19 +493,19 @@ class Tetandris:
 
 
     def drawBoard(self,board):
-        # draw the border around the board
+
         pygame.draw.rect(DISPLAYSURF, self.BORDERCOLOR, (self.XMARGIN - 3, self.TOPMARGIN - 7, (self.BOARDWIDTH * self.BOXSIZE) + 8, (self.BOARDHEIGHT * self.BOXSIZE) + 8), 5)
 
-        # fill the background of the board
+
         pygame.draw.rect(DISPLAYSURF, self.BGCOLOR, (self.XMARGIN, self.TOPMARGIN, self.BOXSIZE * self.BOARDWIDTH, self.BOXSIZE * self.BOARDHEIGHT))
-        # draw the individual boxes on the board
+
         for x in range(self.BOARDWIDTH):
             for y in range(self.BOARDHEIGHT):
                 self.drawBox(x, y, board[x][y])
 
 
     def drawStatus(self,score, level):
-        # draw the score text
+
         scoreSurf = BASICFONT.render('Score: %s' % score, True, self.TEXTCOLOR)
         scoreRect = scoreSurf.get_rect()
         scoreRect.topleft = (self.WINDOWWIDTH - 150, 20)
@@ -548,10 +521,10 @@ class Tetandris:
     def drawPiece(self,piece, pixelx=None, pixely=None):
         shapeToDraw = self.PIECES[piece['shape']][piece['rotation']]
         if pixelx == None and pixely == None:
-            # if pixelx & pixely hasn't been specified, use the location stored in the piece data structure
+
             pixelx, pixely = self.convertToPixelCoords(piece['x'], piece['y'])
 
-        # draw each of the boxes that make up the piece
+
         for x in range(self.TEMPLATEWIDTH):
             for y in range(self.TEMPLATEHEIGHT):
 
@@ -560,12 +533,12 @@ class Tetandris:
 
 
     def drawNextPiece(self,piece):
-        # draw the "next" text
+
         nextSurf = BASICFONT.render('Next:', True, self.TEXTCOLOR)
         nextRect = nextSurf.get_rect()
         nextRect.topleft = (self.WINDOWWIDTH - 120, 80)
         DISPLAYSURF.blit(nextSurf, nextRect)
-        # draw the "next" piece
+
         self.drawPiece(piece, pixelx=self.WINDOWWIDTH-120, pixely=100)
 
 
@@ -700,70 +673,51 @@ if __name__ == '__main__':
     import sys
     surface = pygame.display.set_mode((854,480)) #0,6671875 and 0,(6) of HD resoultion
     surface.fill((51,51,51))
-    '''First you have to make an object of a *Menu class.
-    *init take 2 arguments. List of fields and destination surface.
-    Then you have a 4 configuration options:
-    *set_colors will set colors of menu (text, selection, background)
-    *set_fontsize will set size of font.
-    *set_font take a path to font you choose.
-    *move_menu is quite interseting. It is only option which you can use before
-    and after *init statement. When you use it before you will move menu from
-    center of your surface. When you use it after it will set constant coordinates.
-    Uncomment every one and check what is result!
-    *draw will blit menu on the surface. Be carefull better set only -1 and 1
-    arguments to move selection or nothing. This function will return actual
-    position of selection.
-    *get_postion will return actual position of seletion. '''
     menu = Menu()#necessary
-    #menu.set_colors((255,255,255), (0,0,255), (0,0,0))#optional
-    #menu.set_fontsize(64)#optional
-    #menu.set_font('data/couree.fon')#optional
-    #menu.move_menu(100, 99)#optional
 
     menu.init(['Game Start','Difficulty','Character','Quit'], surface)#necessary
     pygame.display.set_caption('TetandRis MENU')
 
-    #menu.move_menu(0, 0)#optional
-    menu.draw()#necessary
+    menu.draw()
     tmp=0
     tmp2=0
-    pygame.key.set_repeat(199,69)#(delay,interval)
+    pygame.key.set_repeat(199,69)
     pygame.display.update()
     tet = Tetandris()
     while 1:
         for event in pygame.event.get():
             if event.type == KEYDOWN:
                 if event.key == K_UP:
-                    menu.draw(-1) #here is the Menu class function
+                    menu.draw(-1)
                 if event.key == K_DOWN:
-                    menu.draw(1) #here is the Menu class function
+                    menu.draw(1)
                 if event.key == K_RETURN:
 
 
 
-                    if menu.get_position() == 3:#here is the Menu class function
+                    if menu.get_position() == 3:
                         pygame.display.quit()
                         sys.exit()
                     if menu.get_position() == 0:
                         tet.main()
                     if menu.get_position() == 1:
 
-                        # surface = pygame.display.set_mode((854,480))
+
                         surface.fill((51,51,51))
                         menu.init(['Easy','Normal','Hard','Hell'],surface)
                         menu.move_menu(395,200)
                         menu.draw()
 
                         pygame.display.update()
-                        # tmp =0
+
                         while 1:
 
                             for event in pygame.event.get():
                                 if event.type == KEYDOWN:
                                     if event.key == K_UP:
-                                        menu.draw(-1) #here is the Menu class function
+                                        menu.draw(-1)
                                     if event.key == K_DOWN:
-                                        menu.draw(1) #here is the Menu class function
+                                        menu.draw(1)
                                     if event.key == K_RETURN:
                                         if menu.get_position() == 3:
                                             tet.score = 250
@@ -772,22 +726,16 @@ if __name__ == '__main__':
                                             tet.score = 0
                                             DIFFICULTY = 0
 
-                                            # pygame.display.quit()
+
 
                                         if menu.get_position() == 1:
                                             tet.score= 100
                                             DIFFICULTY = 1
 
-                                            # pygame.display.update()
-
-
                                         if menu.get_position() == 2:
                                             tet.score = 200
                                             DIFFICULTY = 2
 
-
-
-                                            # pygame.display.update()
 
                                         tmp=1
                                         surface.fill((51,51,51))
@@ -827,30 +775,20 @@ if __name__ == '__main__':
                             for event in pygame.event.get():
                                 if event.type == KEYDOWN:
                                     if event.key == K_UP:
-                                        menu.draw(-1) #here is the Menu class function
+                                        menu.draw(-1)
                                     if event.key == K_DOWN:
-                                        menu.draw(1) #here is the Menu class function
+                                        menu.draw(1)
                                     if event.key == K_RETURN:
                                         if menu.get_position() == 0:
                                             charNum = '00'
                                             soundNum = '00'
 
 
-                                            # pygame.display.quit()
-
                                         if menu.get_position() == 1:
                                             charNum = '01'
                                             soundNum = '01'
 
-                                        # if menu.get_position() == 2:
-                                        #     charNum = '01'
-                                        # if menu.get_position() == 3:
-                                        #     charNum = '01'
 
-                                            # pygame.display.update()
-
-
-                                            # pygame.display.update()
 
                                         tmp2=1
                                         surface.fill((51,51,51))
