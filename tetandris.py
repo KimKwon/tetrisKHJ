@@ -315,7 +315,7 @@ class Tetandris:
             # drawing everything on the screen
 
             DISPLAYSURF.fill(self.BGCOLOR)
-            if self.score %15 == 0 and isulti==False and self.score is not 0 and self.score is not 100:
+            if self.score %10 == 0 and isulti==False and self.score is not 0 and self.score is not 100:
                 isulti=True
                 DISPLAYSURF.blit(ulti,(0,0))
             elif isulti==True:
@@ -671,9 +671,9 @@ class Menu:
 
 if __name__ == '__main__':
     import sys
-    surface = pygame.display.set_mode((854,480)) #0,6671875 and 0,(6) of HD resoultion
+    surface = pygame.display.set_mode((854,480))
     surface.fill((51,51,51))
-    menu = Menu()#necessary
+    menu = Menu()
 
     menu.init(['Game Start','Difficulty','Character','Quit'], surface)#necessary
     pygame.display.set_caption('TetandRis MENU')
@@ -698,9 +698,9 @@ if __name__ == '__main__':
                     if menu.get_position() == 3:
                         pygame.display.quit()
                         sys.exit()
-                    if menu.get_position() == 0:
+                    elif menu.get_position() == 0:
                         tet.main()
-                    if menu.get_position() == 1:
+                    elif menu.get_position() == 1:
 
 
                         surface.fill((51,51,51))
@@ -722,17 +722,14 @@ if __name__ == '__main__':
                                         if menu.get_position() == 3:
                                             tet.score = 250
                                             DIFFICULTY = 3
-                                        if menu.get_position() == 0:
+                                        elif menu.get_position() == 0:
                                             tet.score = 0
                                             DIFFICULTY = 0
-
-
-
-                                        if menu.get_position() == 1:
+                                        elif menu.get_position() == 1:
                                             tet.score= 100
                                             DIFFICULTY = 1
 
-                                        if menu.get_position() == 2:
+                                        elif menu.get_position() == 2:
                                             tet.score = 200
                                             DIFFICULTY = 2
 
@@ -762,7 +759,7 @@ if __name__ == '__main__':
                             pygame.time.wait(8)
                             if tmp==1:
                                 break
-                    if menu.get_position() == 2:
+                    elif menu.get_position() == 2:
                         surface.fill((51,51,51))
                         menu.init(['Genzi','Naruto'],surface)
                         menu.move_menu(395,200)
@@ -784,7 +781,7 @@ if __name__ == '__main__':
                                             soundNum = '00'
 
 
-                                        if menu.get_position() == 1:
+                                        elif menu.get_position() == 1:
                                             charNum = '01'
                                             soundNum = '01'
 
