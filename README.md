@@ -2,6 +2,8 @@
 ** Kwon Hyuk Jin
 
 
+![](https://github.com/KimKwon/tetrisKHJ/blob/master/menu.png)
+![](https://github.com/KimKwon/tetrisKHJ/blob/master/play.png)
 
 
 
