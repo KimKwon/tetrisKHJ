@@ -15,6 +15,7 @@ class Tetandris:
         self.BOARDHEIGHT = 20
         self.BLANK = '.'
         self.score = 0
+        self.DIFFICULTY=0
 
         self.MOVESIDEWAYSFREQ = 0.15
         self.MOVEDOWNFREQ = 0.1
@@ -158,7 +159,7 @@ class Tetandris:
 
 
     def main(self):
-        global FPSCLOCK, DISPLAYSURF, BASICFONT, BIGFONT, ulti, noob, DIFFICULTY
+        global FPSCLOCK, DISPLAYSURF, BASICFONT, BIGFONT, ulti, noob
         pygame.init()
         FPSCLOCK = pygame.time.Clock()
         DISPLAYSURF = pygame.display.set_mode((self.WINDOWWIDTH, self.WINDOWHEIGHT))
@@ -375,13 +376,14 @@ class Tetandris:
             pygame.display.update()
             FPSCLOCK.tick()
         if(noob == True):
-            if DIFFICULTY == 0:
+            if self.DIFFICULTY == 0:
                 self.score = 0
-            elif DIFFICULTY == 1:
+            elif self.DIFFICULTY == 1:
                 self.score = 100
-            elif DIFFICULTY == 2:
+            elif self.DIFFICULTY == 2:
                 self.score = 200
-            elif DIFFICULTY == 3:
+            elif self.DIFFICULTY == 3:
+
                 self.score = 250
 
 
@@ -721,17 +723,17 @@ if __name__ == '__main__':
                                     if event.key == K_RETURN:
                                         if menu.get_position() == 3:
                                             tet.score = 250
-                                            DIFFICULTY = 3
+                                            self.DIFFICULTY = 3
                                         elif menu.get_position() == 0:
                                             tet.score = 0
-                                            DIFFICULTY = 0
+                                            self.DIFFICULTY = 0
                                         elif menu.get_position() == 1:
                                             tet.score= 100
-                                            DIFFICULTY = 1
+                                            self.DIFFICULTY = 1
 
                                         elif menu.get_position() == 2:
                                             tet.score = 200
-                                            DIFFICULTY = 2
+                                            self.DIFFICULTY = 2
 
 
                                         tmp=1
